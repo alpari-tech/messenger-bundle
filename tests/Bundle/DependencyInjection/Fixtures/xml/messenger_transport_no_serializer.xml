@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:messenger="http://symfony.com/schema/dic/messenger"
+           xmlns:framework="http://symfony.com/schema/dic/symfony"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd
+        http://symfony.com/schema/dic/messenger http://symfony.com/schema/dic/messenger/messenger.xsd
+        http://symfony.com/schema/dic/symfony http://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
+    <framework:config>
+        <framework:serializer enabled="false" />
+    </framework:config>
+
+    <messenger:config>
+        <messenger:serializer enabled="true" />
+        <messenger:transport name="default" dsn="amqp://localhost/%2f/messages" />
+    </messenger:config>
+</container>

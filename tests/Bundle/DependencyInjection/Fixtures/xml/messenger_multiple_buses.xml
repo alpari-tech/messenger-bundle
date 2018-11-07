@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:messenger="http://symfony.com/schema/dic/messenger"
+           xmlns:framework="http://symfony.com/schema/dic/symfony"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd
+        http://symfony.com/schema/dic/messenger http://symfony.com/schema/dic/messenger/messenger.xsd
+        http://symfony.com/schema/dic/symfony http://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
+    <framework:config>
+        <framework:serializer enabled="true" />
+    </framework:config>
+
+    <messenger:config default-bus="messenger.bus.commands">
+        <messenger:bus name="messenger.bus.commands" />
+        <messenger:bus name="messenger.bus.events">
+            <messenger:middleware id="with_factory">
+                <messenger:argument>foo</messenger:argument>
+                <messenger:argument>true</messenger:argument>
+                <messenger:argument>
+                    <messenger:bar>baz</messenger:bar>
+                </messenger:argument>
+            </messenger:middleware>
+            <messenger:middleware id="allow_no_handler" />
+        </messenger:bus>
+        <messenger:bus name="messenger.bus.queries" default-middleware="false">
+            <messenger:middleware id="route_messages" />
+            <messenger:middleware id="allow_no_handler" />
+            <messenger:middleware id="call_message_handler" />
+        </messenger:bus>
+    </messenger:config>
+</container>

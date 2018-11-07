@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:messenger="http://symfony.com/schema/dic/messenger"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd
+        http://symfony.com/schema/dic/messenger http://symfony.com/schema/dic/messenger/messenger.xsd">
+    <messenger:config>
+        <messenger:serializer enabled="false" />
+        <messenger:routing message-class="Symfony\Bundle\MessengerBundle\Fixtures\FooMessage">
+            <messenger:sender service="sender.bar" />
+            <messenger:sender service="sender.biz" />
+        </messenger:routing>
+        <messenger:routing message-class="Symfony\Bundle\MessengerBundle\Fixtures\BarMessage">
+            <messenger:sender service="sender.foo" />
+        </messenger:routing>
+    </messenger:config>
+</container>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xsd:schema xmlns="http://symfony.com/schema/dic/messenger"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            targetNamespace="http://symfony.com/schema/dic/messenger"
+            elementFormDefault="qualified">
+
+    <xsd:element name="config" type="messenger" />
+
+    <xsd:complexType name="messenger">
+        <xsd:sequence>
+            <xsd:element name="serializer" type="messenger_serializer" minOccurs="0" />
+            <xsd:element name="encoder" type="xsd:string" minOccurs="0" />
+            <xsd:element name="decoder" type="xsd:string" minOccurs="0" />
+            <xsd:element name="routing" type="messenger_routing" minOccurs="0" maxOccurs="unbounded" />
+            <xsd:element name="transport" type="messenger_transport" minOccurs="0" maxOccurs="unbounded" />
+            <xsd:element name="bus" type="messenger_bus" minOccurs="0" maxOccurs="unbounded" />
+        </xsd:sequence>
+        <xsd:attribute name="default-bus" type="xsd:string" />
+    </xsd:complexType>
+
+    <xsd:complexType name="messenger_serializer">
+        <xsd:sequence>
+            <xsd:element name="context" type="metadata" minOccurs="0" maxOccurs="unbounded" />
+        </xsd:sequence>
+        <xsd:attribute name="format" type="xsd:string" />
+        <xsd:attribute name="enabled" type="xsd:boolean" />
+    </xsd:complexType>
+
+    <xsd:complexType name="messenger_routing">
+        <xsd:choice minOccurs="0" maxOccurs="unbounded">
+            <xsd:element name="sender" type="messenger_routing_sender" />
+        </xsd:choice>
+        <xsd:attribute name="message-class" type="xsd:string" use="required"/>
+        <xsd:attribute name="send-and-handle" type="xsd:boolean" default="false"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="messenger_routing_sender">
+        <xsd:attribute name="service" type="xsd:string" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="messenger_transport">
+        <xsd:sequence>
+            <xsd:element name="options" type="metadata" minOccurs="0" maxOccurs="unbounded" />
+        </xsd:sequence>
+        <xsd:attribute name="name" type="xsd:string" />
+        <xsd:attribute name="dsn" type="xsd:string" />
+    </xsd:complexType>
+
+    <xsd:complexType name="messenger_bus">
+        <xsd:sequence>
+            <xsd:element name="middleware" type="messenger_middleware" minOccurs="0" maxOccurs="unbounded" />
+        </xsd:sequence>
+        <xsd:attribute name="name" type="xsd:string" use="required"/>
+        <xsd:attribute name="default-middleware" type="xsd:boolean"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="messenger_middleware">
+        <xsd:sequence>
+            <xsd:element name="argument" type="xsd:anyType" minOccurs="0" maxOccurs="unbounded" />
+        </xsd:sequence>
+        <xsd:attribute name="id" type="xsd:string" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="metadata">
+        <xsd:sequence>
+            <xsd:any minOccurs="0" processContents="lax"/>
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:schema>

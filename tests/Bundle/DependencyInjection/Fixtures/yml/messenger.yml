@@ -1,0 +1,5 @@
+messenger:
+    serializer: false
+    routing:
+        'Symfony\Bundle\MessengerBundle\Fixtures\FooMessage': ['sender.bar', 'sender.biz']
+        'Symfony\Bundle\MessengerBundle\Fixtures\BarMessage': 'sender.foo'

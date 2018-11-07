@@ -1,0 +1,6 @@
+messenger:
+    buses:
+        command_bus:
+            middleware:
+                - foo: ['qux']
+                  bar: ['baz']

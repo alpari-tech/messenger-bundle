@@ -1,0 +1,30 @@
+<?php
+
+/*
+ * This file is part of the Symfony package.
+ *
+ * (c) Fabien Potencier <fabien@symfony.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+namespace Symfony\Bundle\MessengerBundle\DependencyInjection;
+
+use Symfony\Component\Config\FileLocator;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
+
+class XmlMessengerExtensionTest extends MessengerExtensionTest
+{
+    protected function loadFromFile(ContainerBuilder $container, $file)
+    {
+        $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/Fixtures/xml'));
+        $loader->load($file.'.xml');
+    }
+
+    public function testMessengerMiddlewareFactoryErroneousFormat()
+    {
+        $this->markTestSkipped('XML configuration will not allow eeroneous format.');
+    }
+}
